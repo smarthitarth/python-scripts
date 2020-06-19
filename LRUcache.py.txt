@@ -1,0 +1,28 @@
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity    
+        self.list = collections.OrderedDict()
+
+    def get(self, key: int) -> int:
+        try:
+            value = self.list.pop(key)
+            self.list[key] = value
+            return value
+        except:
+            return -1
+
+    def put(self, key: int, value: int) -> None:
+        try:
+            self.list.pop(key)
+        except:
+            if len(self.list) >= self.capacity:
+
+                self.list.popitem(last=False)
+        self.list[key] = value
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
